@@ -52,7 +52,7 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
         if(id == R.id.action_refresh)
         {
-            return true;
+            new FetchWeatherTask().execute("hi");
         }
 
         return super.onOptionsItemSelected(item);
@@ -117,7 +117,7 @@ class FetchWeatherTask extends AsyncTask
             // Construct the URL for the OpenWeatherMap query
             // Possible parameters are avaiable at OWM's forecast API page, at
             // http://openweathermap.org/API#forecast
-            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=90210&mode=json&units=metric&cnt=7&APPID=8780b95cdbab0e8fb5fd63c28041ba49");
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -146,6 +146,7 @@ class FetchWeatherTask extends AsyncTask
                 return null;
             }
             forecastJsonStr = buffer.toString();
+            Log.e(LOG_TAG,forecastJsonStr);
         } catch (IOException e) {
             Log.e(LOG_TAG, "error", e);
         } finally {
