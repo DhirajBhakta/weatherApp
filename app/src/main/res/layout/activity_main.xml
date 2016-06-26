@@ -13,7 +13,7 @@
         android:id="@+id/fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="hp.dhiraj.weatherapp.MainFragment"
+        android:name="hp.dhiraj.weatherapp.ForecastFragment"
         android:layout_centerVertical="true"
         tools:layout="@layout/forecast_listview_fragment"
         android:layout_alignParentEnd="true"
