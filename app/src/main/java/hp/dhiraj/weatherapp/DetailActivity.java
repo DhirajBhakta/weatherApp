@@ -4,11 +4,15 @@ package hp.dhiraj.weatherapp;
 
         import android.content.Intent;
         import android.os.Bundle;
+        import android.os.DeadObjectException;
         import android.support.v4.app.Fragment;
+        import android.support.v4.view.MenuItemCompat;
         import android.support.v7.app.ActionBarActivity;
         import android.support.v7.app.AppCompatActivity;
+        import android.support.v7.widget.ShareActionProvider;
         import android.view.LayoutInflater;
         import android.view.Menu;
+        import android.view.MenuInflater;
         import android.view.MenuItem;
         import android.view.View;
         import android.view.ViewGroup;
@@ -22,7 +26,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new DetailFragment())
                     .commit();
 
         }
@@ -57,9 +61,14 @@ public class DetailActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class DetailFragment extends Fragment {
 
-        public PlaceholderFragment() {
+        private static final String LOG_TAG = DetailFragment.class.getSimpleName();
+        private static final String FORECAST_SHARE_HASHTAG=" #DbK_WeatherApp";
+        String mForecastStr;
+
+        public DetailFragment() {
+            setHasOptionsMenu(true);
         }
 
         @Override
@@ -71,11 +80,31 @@ public class DetailActivity extends AppCompatActivity {
 
             Intent intent = getActivity().getIntent();
             if(intent!=null && intent.hasExtra(Intent.EXTRA_TEXT)) {
-                String data = intent.getStringExtra(Intent.EXTRA_TEXT);
-                t.setText(data);
+                mForecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
+                t.setText(mForecastStr);
             }
             return rootView;
 
+        }
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+          inflater.inflate(R.menu.detailfragment,menu);
+
+          MenuItem menuItem = menu.findItem(R.id.action_share);
+
+            ShareActionProvider shareActionProvider=(ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+            shareActionProvider.setShareIntent(createShareForecastIntent());
+
+        }
+
+        private Intent createShareForecastIntent()
+        {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT,mForecastStr+FORECAST_SHARE_HASHTAG);
+            return shareIntent;
         }
     }
 }
