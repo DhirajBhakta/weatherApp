@@ -1,5 +1,6 @@
 package hp.dhiraj.weatherapp;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -61,15 +62,27 @@ public class ForecastFragment extends Fragment {
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public void onStart() {
+        super.onStart();
+        update_weather();
+    }
 
-        FetchWeatherTask task = new FetchWeatherTask();
+
+    //helper method
+    public void update_weather(){
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String location = prefs.getString(getString(R.string.pref_location_key),getString(R.string.pref_location_default));
 
+        new FetchWeatherTask().execute(location);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            new FetchWeatherTask().execute(location);
+          update_weather();
         }
         if(id == R.id.action_settings)
         {
