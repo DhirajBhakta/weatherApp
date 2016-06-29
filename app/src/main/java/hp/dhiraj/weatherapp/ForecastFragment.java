@@ -1,5 +1,6 @@
 package hp.dhiraj.weatherapp;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -82,7 +83,10 @@ public class ForecastFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                String data = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getActivity(),data,Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(),data,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(),DetailActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT,data);
+                startActivity(intent);
             }
         });
 
