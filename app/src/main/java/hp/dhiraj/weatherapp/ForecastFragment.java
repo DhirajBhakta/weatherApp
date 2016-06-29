@@ -89,9 +89,29 @@ public class ForecastFragment extends Fragment {
             intent = new Intent(getActivity(),SettingsActivity.class);
             startActivity(intent);
         }
+        if(id == R.id.action_currentlocation)
+        {
+            openPreferredLocationInMap();
+        }
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    //helper
+    private void openPreferredLocationInMap()
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String zipcode=prefs.getString(getString(R.string.pref_location_key),getString(R.string.pref_location_default));
+
+
+        Uri geoLocation = Uri.parse("geo:0,0?").buildUpon().appendQueryParameter("q",zipcode).build();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(geoLocation);
+        startActivity(intent);
+    }
+
 
     @Nullable
     @Override

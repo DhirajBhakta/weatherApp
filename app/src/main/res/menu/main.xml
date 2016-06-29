@@ -13,5 +13,8 @@
     <item android:id="@+id/action_refresh"
           android:title="REFRESH"
         />
+    <item android:id="@+id/action_currentlocation"
+          android:title="Current Location"
+       />
 
 </menu>
