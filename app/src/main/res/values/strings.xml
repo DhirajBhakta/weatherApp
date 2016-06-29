@@ -6,4 +6,7 @@
 
     <string name="pref_location_key">"LOCATION"</string>
     <string name="pref_location_default">576101</string>
+    <string name="pref_temperature_key">"TEMPERATURE"</string>
+    <string name="pref_temperature_default">"CELCIUS"</string>
+    <string name="title_activity_hhhhhhhhhhhhhhhhhhh">hhhhhhhhhhhhhhhhhhh</string>
 </resources>
