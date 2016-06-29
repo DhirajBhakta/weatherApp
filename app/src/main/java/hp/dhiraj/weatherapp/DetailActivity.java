@@ -15,7 +15,7 @@ package hp.dhiraj.weatherapp;
         import android.widget.TextView;
 
 public class DetailActivity extends AppCompatActivity {
-
+  Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +44,11 @@ public class DetailActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+      
+        if(id == R.id.action_settings)
+        {
+            intent = new Intent(this,SettingsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

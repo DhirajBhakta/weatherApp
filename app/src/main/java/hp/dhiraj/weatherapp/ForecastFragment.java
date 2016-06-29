@@ -44,7 +44,7 @@ import java.util.List;
 public class ForecastFragment extends Fragment {
 
     ArrayAdapter<String> arrayAdapter;
-
+    Intent intent;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +65,11 @@ public class ForecastFragment extends Fragment {
         if (id == R.id.action_refresh) {
             new FetchWeatherTask().execute("590006");
         }
+        if(id == R.id.action_settings)
+        {
+            intent = new Intent(getActivity(),SettingsActivity.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -84,7 +89,7 @@ public class ForecastFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                String data = parent.getItemAtPosition(position).toString();
                // Toast.makeText(getActivity(),data,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(),DetailActivity.class);
+                intent = new Intent(getActivity(),DetailActivity.class);
                 intent.putExtra(Intent.EXTRA_TEXT,data);
                 startActivity(intent);
             }
